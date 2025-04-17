@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PCEA Youth Programs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(120deg, #0f172a, #1e293b);
+      font-family: 'Poppins', sans-serif;
+      color: #f8fafc;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    header h1 {
+      font-size: 2.7rem;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(45deg, #38bdf8, #22c55e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .programs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .program-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      transition: 0.3s ease-in-out;
+    }
+
+    .program-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px rgba(56,189,248,0.4);
+    }
+
+    .program-card h3 {
+      color: #38bdf8;
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+    }
+
+    .program-card p {
+      font-size: 1rem;
+      color: #f1f5f9;
+      margin-bottom: 15px;
+    }
+
+    .program-card span {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 5px 15px;
+      border-radius: 20px;
+      background: #22c55e;
+      color: #fff;
+      font-size: 0.85rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 1rem;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    footer span {
+      background: linear-gradient(45deg, #38bdf8, #22c55e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+    }
+.menu-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  font-size: 2rem;
+  color: #38bdf8;
+  cursor: pointer;
+  user-select: none;
+}
+
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  transition: left 0.3s ease;
+}
+
+.main-nav ul {
+  padding: 60px 20px;
+  list-style: none;
+}
+
+.main-nav ul li {
+  margin: 20px 0;
+}
+
+.main-nav ul li a {
+  color: #f8fafc;
+  text-decoration: none;
+  font-size: 1.1rem;
+  display: block;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.main-nav ul li a:hover,
+.main-nav ul li a.active {
+  background: linear-gradient(90deg, #38bdf8, #22c55e);
+  color: #0f172a;
+}
+  </style>
+</head>
+<body>
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+<nav class="main-nav" id="mainNav">
+  <ul>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="programs.html">Programs & Events</a></li>
+    <li><a href="gallery.html">Media Gallery</a></li>
+    <li><a href="devotions.html">Devotions & Blog</a></li>
+    <li><a href="contact.html">Contact & Prayer Requests</a></li>
+    <li><a href="donations.html">Donations & Support</a></li>
+    <li><a href="resources.html">Resources</a></li>
+  </ul>
+</nav>
+<header>
+  <h1>PCEA Youth Programs</h1>
+</header>
+
+<section class="programs">
+  <div class="program-card">
+    <h3>Youth Week</h3>
+    <p>A week full of worship, outreach, leadership and bonding activities for all youths.</p>
+    <span>July 7th - 14th</span>
+  </div>
+
+  <div class="program-card">
+    <h3>Recent Fellowships</h3>
+    <p>Every second Sunday of the month. Spirit-filled, empowering, and inspiring sessions for youth growth.</p>
+    <span>Last: April 14th</span>
+  </div>
+
+  <div class="program-card">
+    <h3>Coming Kesha</h3>
+    <p>Night of worship, prayer and testimony. Be prepared to ignite your faith under the stars!</p>
+    <span>May 3rd</span>
+  </div>
+
+  <div class="program-card">
+    <h3>Upcoming Youth Summit</h3>
+    <p>Gathering of young leaders for workshops, praise, and purposeful networking.</p>
+    <span>June 22nd</span>
+  </div>
+</section>
+
+<footer>
+  <p><span>Love</span> • <span>Faith</span> • <span>Hope</span></p>
+</footer>
+
+</body>
+<script>
+function toggleMenu() {
+  const nav = document.getElementById('mainNav');
+  if (nav.style.left === "0px") {
+    nav.style.left = "-260px";
+  } else {
+    nav.style.left = "0px";
+  }
+}
+
+// Highlight Active Link
+const currentPage = location.pathname.split("/").pop();
+document.querySelectorAll('.main-nav a').forEach(link => {
+  if(link.getAttribute('href') === currentPage){
+    link.classList.add('active');
+  }
+});
+</script>
+</html>

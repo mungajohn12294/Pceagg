@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PCEA Youth — Resources</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: radial-gradient(ellipse at top, #0f172a, #020617);
+      font-family: 'Poppins', sans-serif;
+      color: #f8fafc;
+    }
+    header {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(90deg, #38bdf8, #22c55e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .search-bar {
+      max-width: 600px;
+      margin: 30px auto;
+      display: flex;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .search-bar input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 15px 20px;
+      color: #f8fafc;
+      font-size: 1rem;
+    }
+    .search-bar button {
+      background: linear-gradient(45deg, #38bdf8, #22c55e);
+      border: none;
+      padding: 0 20px;
+      cursor: pointer;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 0 50px 50px 0;
+      transition: 0.3s ease;
+    }
+    .search-bar button:hover {
+      filter: brightness(1.2);
+    }
+    .resources {
+      max-width: 1200px;
+      margin: 50px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 20px;
+    }
+    .resource-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+      transition: 0.4s ease;
+    }
+    .resource-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 35px rgba(56, 189, 248, 0.4);
+    }
+    .resource-card h3 {
+      font-size: 1.3rem;
+      background: linear-gradient(45deg, #38bdf8, #22c55e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+    .resource-card p {
+      font-size: 0.95rem;
+      color: #94a3b8;
+      margin-bottom: 15px;
+    }
+    .download-btn {
+      display: inline-block;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      background: linear-gradient(45deg, #38bdf8, #22c55e);
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+      transition: 0.3s ease;
+    }
+    .download-btn:hover {
+      filter: brightness(1.2);
+    }
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 1rem;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 50px;
+    }
+    footer span {
+      background: linear-gradient(45deg, #38bdf8, #22c55e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+    }
+/* Hamburger Icon */
+.menu-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  font-size: 2rem;
+  color: #38bdf8;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Hidden Nav Default */
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  transition: left 0.3s ease;
+}
+
+.main-nav ul {
+  padding: 60px 20px;
+  list-style: none;
+}
+
+.main-nav ul li {
+  margin: 20px 0;
+}
+
+.main-nav ul li a {
+  color: #f8fafc;
+  text-decoration: none;
+  font-size: 1.1rem;
+  display: block;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.main-nav ul li a:hover,
+.main-nav ul li a.active {
+  background: linear-gradient(90deg, #38bdf8, #22c55e);
+  color: #0f172a;
+}
+  </style>
+</head>
+<body>
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+<nav class="main-nav" id="mainNav">
+  <ul>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="programs.html">Programs & Events</a></li>
+    <li><a href="gallery.html">Media Gallery</a></li>
+    <li><a href="devotions.html">Devotions & Blog</a></li>
+    <li><a href="contact.html">Contact & Prayer Requests</a></li>
+    <li><a href="donations.html">Donations & Support</a></li>
+    <li><a href="resources.html">Resources</a></li>
+  </ul>
+</nav>
+
+<header>
+  <h1>PCEA Youth — Resources</h1>
+</header>
+
+<div class="search-bar">
+  <input type="text" placeholder="Search resources...">
+  <button>Search</button>
+</div>
+
+<section class="resources">
+
+  <div class="resource-card">
+    <h3>Bible Study: James Series</h3>
+    <p>Group devotion guide covering wisdom and faith from the Book of James.</p>
+    <a href="files/james-study-guide.pdf" class="download-btn" target="_blank">Download PDF</a>
+  </div>
+
+  <div class="resource-card">
+    <h3>Youth Summit 2025 Presentations</h3>
+    <p>Speaker slides and study handouts from this year’s summit!</p>
+    <a href="files/youth-summit2025.zip" class="download-btn" target="_blank">Download ZIP</a>
+  </div>
+
+  <div class="resource-card">
+    <h3>Worship Playlist</h3>
+    <p>Our curated Spotify worship playlist for youth fellowships & personal devotion.</p>
+    <a href="https://open.spotify.com/playlist/yourplaylist" class="download-btn" target="_blank">Listen Now</a>
+  </div>
+
+  <div class="resource-card">
+    <h3>Event Posters & Flyers</h3>
+    <p>Download digital posters for upcoming events and share them widely.</p>
+    <a href="files/event-posters.pdf" class="download-btn" target="_blank">Download</a>
+  </div>
+
+  <div class="resource-card">
+    <h3>Volunteer Guidelines</h3>
+    <p>Everything you need to know to serve effectively in youth ministries.</p>
+    <a href="files/volunteer-guidelines.pdf" class="download-btn" target="_blank">Download PDF</a>
+  </div>
+
+  <div class="resource-card">
+    <h3>Book: Purpose Driven Life</h3>
+    <p>Recommended Christian growth book for all PCEA Youth members.</p>
+    <a href="https://yourbookstorelink.com" class="download-btn" target="_blank">View Book</a>
+  </div>
+
+</section>
+
+<footer>
+  <p><span>Love</span> • <span>Faith</span> • <span>Hope</span></p>
+</footer>
+
+</body>
+<script>
+function toggleMenu() {
+  const nav = document.getElementById('mainNav');
+  if (nav.style.left === "0px") {
+    nav.style.left = "-260px";
+  } else {
+    nav.style.left = "0px";
+  }
+}
+
+// Highlight Active Link
+const currentPage = location.pathname.split("/").pop();
+document.querySelectorAll('.main-nav a').forEach(link => {
+  if(link.getAttribute('href') === currentPage){
+    link.classList.add('active');
+  }
+});
+</script>
+</html>

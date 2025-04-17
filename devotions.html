@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PCEA Youth - Devotions & Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at top, #0f172a, #020617);
+      font-family: 'Poppins', sans-serif;
+      color: #f8fafc;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(90deg, #38bdf8, #22c55e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .blog-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .blog-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.08);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 40px rgba(56, 189, 248, 0.3);
+    }
+
+    .blog-card h2 {
+      font-size: 1.5rem;
+      background: linear-gradient(90deg, #38bdf8, #22c55e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .blog-card p {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .read-more {
+      margin-top: auto;
+      text-decoration: none;
+      color: #22c55e;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .read-more:hover {
+      color: #38bdf8;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 1rem;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    footer span {
+      background: linear-gradient(45deg, #38bdf8, #22c55e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+    }
+.menu-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  font-size: 2rem;
+  color: #38bdf8;
+  cursor: pointer;
+  user-select: none;
+}
+
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  transition: left 0.3s ease;
+}
+
+.main-nav ul {
+  padding: 60px 20px;
+  list-style: none;
+}
+
+.main-nav ul li {
+  margin: 20px 0;
+}
+
+.main-nav ul li a {
+  color: #f8fafc;
+  text-decoration: none;
+  font-size: 1.1rem;
+  display: block;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.main-nav ul li a:hover,
+.main-nav ul li a.active {
+  background: linear-gradient(90deg, #38bdf8, #22c55e);
+  color: #0f172a;
+}
+  </style>
+</head>
+<body>
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+<nav class="main-nav" id="mainNav">
+  <ul>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="programs.html">Programs & Events</a></li>
+    <li><a href="gallery.html">Media Gallery</a></li>
+    <li><a href="devotions.html">Devotions & Blog</a></li>
+    <li><a href="contact.html">Contact & Prayer Requests</a></li>
+    <li><a href="donations.html">Donations & Support</a></li>
+    <li><a href="resources.html">Resources</a></li>
+  </ul>
+</nav>
+
+<header>
+  <h1>PCEA Youth Devotions & Blog</h1>
+</header>
+
+<section class="blog-container">
+
+  <div class="blog-card">
+    <h2>Faith Over Fear</h2>
+    <p>"When I am afraid, I put my trust in you." — Psalm 56:3. A short reflection on trusting God in uncertain times.</p>
+    <a href="#" class="read-more">Read More</a>
+  </div>
+
+  <div class="blog-card">
+    <h2>Walking in Purpose</h2>
+    <p>Every day is a new chance to walk in the calling God designed for you. Let’s explore how to align your actions with purpose.</p>
+    <a href="#" class="read-more">Read More</a>
+  </div>
+
+  <div class="blog-card">
+    <h2>The Power of Prayer</h2>
+    <p>Prayer isn’t just communication; it's transformation. Discover how to deepen your prayer life and hear God's voice clearly.</p>
+    <a href="#" class="read-more">Read More</a>
+  </div>
+
+  <div class="blog-card">
+    <h2>Shining Your Light</h2>
+    <p>Let your light shine before others, that they may see your good deeds and glorify your Father in heaven — Matthew 5:16.</p>
+    <a href="#" class="read-more">Read More</a>
+  </div>
+
+</section>
+
+<footer>
+  <p><span>Love</span> • <span>Faith</span> • <span>Hope</span></p>
+</footer>
+
+</body>
+<script>
+function toggleMenu() {
+  const nav = document.getElementById('mainNav');
+  if (nav.style.left === "0px") {
+    nav.style.left = "-260px";
+  } else {
+    nav.style.left = "0px";
+  }
+}
+
+// Highlight Active Link
+const currentPage = location.pathname.split("/").pop();
+document.querySelectorAll('.main-nav a').forEach(link => {
+  if(link.getAttribute('href') === currentPage){
+    link.classList.add('active');
+  }
+});
+</script>
+</html>

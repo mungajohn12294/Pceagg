@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | Upload Resources</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: radial-gradient(circle at center, #0f172a, #020617);
+      font-family: 'Poppins', sans-serif;
+      color: #f8fafc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(90deg, #38bdf8, #22c55e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 30px;
+    }
+    form {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+    }
+    input, textarea {
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      color: #f8fafc;
+    }
+    button {
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      background: linear-gradient(45deg, #38bdf8, #22c55e);
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      filter: brightness(1.2);
+    }
+    .status {
+      margin-top: 20px;
+      font-size: 0.95rem;
+      color: #22c55e;
+    }
+/* Hamburger Icon */
+.menu-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  font-size: 2rem;
+  color: #38bdf8;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Hidden Nav Default */
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  transition: left 0.3s ease;
+}
+
+.main-nav ul {
+  padding: 60px 20px;
+  list-style: none;
+}
+
+.main-nav ul li {
+  margin: 20px 0;
+}
+
+.main-nav ul li a {
+  color: #f8fafc;
+  text-decoration: none;
+  font-size: 1.1rem;
+  display: block;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.main-nav ul li a:hover,
+.main-nav ul li a.active {
+  background: linear-gradient(90deg, #38bdf8, #22c55e);
+  color: #0f172a;
+}
+  </style>
+</head>
+<body>
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+<nav class="main-nav" id="mainNav">
+  <ul>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="programs.html">Programs & Events</a></li>
+    <li><a href="gallery.html">Media Gallery</a></li>
+    <li><a href="devotions.html">Devotions & Blog</a></li>
+    <li><a href="contact.html">Contact & Prayer Requests</a></li>
+    <li><a href="donations.html">Donations & Support</a></li>
+    <li><a href="resources.html">Resources</a></li>
+  </ul>
+</nav>
+<h1>Upload Youth Resource</h1>
+
+<form id="uploadForm">
+  <input type="text" id="title" placeholder="Resource Title" required>
+  <textarea id="description" placeholder="Short Description" rows="3" required></textarea>
+  <input type="file" id="fileInput" accept=".pdf,.zip,.mp3,.mp4,.jpg,.png" required>
+  <button type="submit">Upload</button>
+  <div class="status" id="status"></div>
+</form>
+
+<script>
+  // Your Firebase config here:
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyB2mQNeygEwdWFCnHJnw9wlqHWKmXlfe38",
+  authDomain: "taptap-377d9.firebaseapp.com",
+  databaseURL: "https://taptap-377d9-default-rtdb.firebaseio.com",
+  projectId: "taptap-377d9",
+  storageBucket: "taptap-377d9.firebasestorage.app",
+  messagingSenderId: "146364410143",
+  appId: "1:146364410143:web:3ce902bdcaeb954091682a",
+  measurementId: "G-LRJ2TK7CDH"
+};
+  firebase.initializeApp(firebaseConfig);
+  const storage = firebase.storage();
+  const db = firebase.firestore();
+
+  const form = document.getElementById('uploadForm');
+  const status = document.getElementById('status');
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const title = document.getElementById('title').value.trim();
+    const description = document.getElementById('description').value.trim();
+    const file = document.getElementById('fileInput').files[0];
+
+    if (!title || !description || !file) return alert("Fill all fields!");
+
+    status.textContent = "Uploading...";
+
+    const storageRef = storage.ref('youth-resources/' + Date.now() + "_" + file.name);
+    try {
+      await storageRef.put(file);
+      const downloadURL = await storageRef.getDownloadURL();
+
+      await db.collection('resources').add({
+        title: title,
+        description: description,
+        fileUrl: downloadURL,
+        createdAt: new Date()
+      });
+
+      status.textContent = "Resource uploaded successfully!";
+      form.reset();
+    } catch (err) {
+      status.textContent = "Error: " + err.message;
+    }
+  });
+
+function toggleMenu() {
+  const nav = document.getElementById('mainNav');
+  if (nav.style.left === "0px") {
+    nav.style.left = "-260px";
+  } else {
+    nav.style.left = "0px";
+  }
+}
+
+// Highlight Active Link
+const currentPage = location.pathname.split("/").pop();
+document.querySelectorAll('.main-nav a').forEach(link => {
+  if(link.getAttribute('href') === currentPage){
+    link.classList.add('active');
+  }
+});
+
+</script>
+
+</body>
+</html>

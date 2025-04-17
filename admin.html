@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PCEA Youth - Prayer Requests Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at top, #0f172a, #020617);
+      font-family: 'Poppins', sans-serif;
+      color: #f8fafc;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(90deg, #38bdf8, #22c55e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .requests-container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 25px rgba(56,189,248,0.06);
+    }
+
+    .request-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 15px;
+      border-radius: 14px;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .request-card:hover {
+      transform: translateY(-3px);
+      background: rgba(34,197,94,0.05);
+    }
+
+    .request-card h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #38bdf8;
+    }
+
+    .request-card p {
+      margin: 5px 0;
+      color: #e2e8f0;
+    }
+
+    .request-card .date {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      text-align: right;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 1rem;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    footer span {
+      background: linear-gradient(45deg, #38bdf8, #22c55e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+    }
+.menu-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  font-size: 2rem;
+  color: #38bdf8;
+  cursor: pointer;
+  user-select: none;
+}
+
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  transition: left 0.3s ease;
+}
+
+.main-nav ul {
+  padding: 60px 20px;
+  list-style: none;
+}
+
+.main-nav ul li {
+  margin: 20px 0;
+}
+
+.main-nav ul li a {
+  color: #f8fafc;
+  text-decoration: none;
+  font-size: 1.1rem;
+  display: block;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.main-nav ul li a:hover,
+.main-nav ul li a.active {
+  background: linear-gradient(90deg, #38bdf8, #22c55e);
+  color: #0f172a;
+}
+  </style>
+</head>
+<body>
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+<nav class="main-nav" id="mainNav">
+  <ul>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="programs.html">Programs & Events</a></li>
+    <li><a href="gallery.html">Media Gallery</a></li>
+    <li><a href="devotions.html">Devotions & Blog</a></li>
+    <li><a href="contact.html">Contact & Prayer Requests</a></li>
+    <li><a href="donations.html">Donations & Support</a></li>
+    <li><a href="resources.html">Resources</a></li>
+  </ul>
+</nav>
+<header>
+  <h1>Prayer Requests Admin Panel</h1>
+</header>
+
+<section class="requests-container" id="requestsList">
+  <p>Loading prayer requests...</p>
+</section>
+
+<footer>
+  <p><span>Admin View</span> — Updated Live</p>
+</footer>
+
+<!-- Firebase App Config -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+<script>
+  // Replace with your Firebase project credentials
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyB2mQNeygEwdWFCnHJnw9wlqHWKmXlfe38",
+  authDomain: "taptap-377d9.firebaseapp.com",
+  databaseURL: "https://taptap-377d9-default-rtdb.firebaseio.com",
+  projectId: "taptap-377d9",
+  storageBucket: "taptap-377d9.firebasestorage.app",
+  messagingSenderId: "146364410143",
+  appId: "1:146364410143:web:3ce902bdcaeb954091682a",
+  measurementId: "G-LRJ2TK7CDH"
+};
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+
+  const requestsList = document.getElementById('requestsList');
+
+  database.ref('prayerRequests').on('value', snapshot => {
+    const data = snapshot.val();
+    requestsList.innerHTML = '';
+
+    if (!data) {
+      requestsList.innerHTML = "<p>No prayer requests found.</p>";
+      return;
+    }
+
+    const entries = Object.entries(data).reverse();
+
+    entries.forEach(([id, req]) => {
+      const card = document.createElement('div');
+      card.className = 'request-card';
+
+      card.innerHTML = `
+        <h3>${req.name}</h3>
+        <p><strong>Email:</strong> ${req.email}</p>
+        <p><strong>Message:</strong> ${req.message}</p>
+        <div class="date">${req.date}</div>
+      `;
+
+      requestsList.appendChild(card);
+    });
+  });
+
+function toggleMenu() {
+  const nav = document.getElementById('mainNav');
+  if (nav.style.left === "0px") {
+    nav.style.left = "-260px";
+  } else {
+    nav.style.left = "0px";
+  }
+}
+
+// Highlight Active Link
+const currentPage = location.pathname.split("/").pop();
+document.querySelectorAll('.main-nav a').forEach(link => {
+  if(link.getAttribute('href') === currentPage){
+    link.classList.add('active');
+  }
+});
+
+</script>
+
+</body>
+</html>
